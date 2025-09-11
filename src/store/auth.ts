@@ -1,21 +1,27 @@
 import { create } from "zustand";
-
+import { persist } from "zustand/middleware";
 
 type AuthState = {
-    token: string | null;
-    setToken: (t: string | null) => void;
-    logout: () => void;
-  };
-  
-  export const useAuthStore = create<AuthState>((set) => ({
-    token: null,
-    setToken: (t) => {
-      if (t) localStorage.setItem("access_token", t);
-      else localStorage.removeItem("access_token");
-      set({ token: t });
-    },
-    logout: () => {
-      localStorage.removeItem("access_token");
-      set({ token: null });
-    },
-  }));
+  token: string | null;
+  isAuthenticated: boolean;
+  setToken: (token: string) => void;
+  logout: () => void;
+};
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      token: null,
+      isAuthenticated: false,
+      setToken: (token: string) => {
+        set({ token, isAuthenticated: true });
+      },
+      logout: () => {
+        set({ token: null, isAuthenticated: false });
+      },
+    }),
+    {
+      name: "auth-storage", 
+    }
+  )
+);
