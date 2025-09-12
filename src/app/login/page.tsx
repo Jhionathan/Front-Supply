@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
 import PrismaticBurst from "@/components/PrismaticBurst";
+import Threads from "@/components/Threads";
+import Image from "next/image";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -53,18 +55,7 @@ export default function LoginForm() {
     <div className="fixed inset-0 bg-black">
 
       <div className="absolute inset-0 z-0">
-        <PrismaticBurst
-          animationType="rotate3d"
-          intensity={2}
-          speed={0.5}
-          distort={1.0}
-          paused={false}
-          offset={{ x: 0, y: 0 }}
-          hoverDampness={0.25}
-          rayCount={24}
-          mixBlendMode="lighten"
-          colors={['#32CD32', '#0000CD', '#ffffff']}
-        />
+        <Image src={'/wp2.png'} width={2048} height={1536} alt="Wallpaper" className="object-cover" />
       </div>
       <div className="relative z-10 flex items-center justify-center min-h-screen">
         <form onSubmit={handleSubmit} className="space-y-6 p-6 border rounded-lg shadow bg-white">
