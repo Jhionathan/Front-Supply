@@ -4,10 +4,12 @@ import { persist } from "zustand/middleware";
 type AuthState = {
   token: string | null;
   isAuthenticated: boolean;
-  _hasHydrated: boolean; // <- flag interna
-  setToken: (token: string) => void;
+  _hasHydrated: boolean;
+  setToken: (token: string, email?: string, name?: string) => void;
   logout: () => void;
   setHydrated: (state: boolean) => void;
+  email?: string;
+  name?: string;
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -16,7 +18,8 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       _hasHydrated: false,
-      setToken: (token: string) => set({ token, isAuthenticated: true }),
+      setToken: (token: string, email?: string, name?: string) =>
+        set({ token, isAuthenticated: true, email, name }),
       logout: () => set({ token: null, isAuthenticated: false }),
       setHydrated: (state: boolean) => set({ _hasHydrated: state }),
     }),

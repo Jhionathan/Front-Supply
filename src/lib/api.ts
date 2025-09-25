@@ -3,6 +3,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export type AuthResponse = {
   access_token: string;
+  email: string;
+  name: string;
 };
 
 export async function login(email: string, password: string): Promise<AuthResponse> {

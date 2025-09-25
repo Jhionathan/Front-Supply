@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
+import LoginPage from "@/components/gaming-login";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -29,8 +30,8 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      const { access_token } = await login(email, password);
-      setToken(access_token);
+      const { access_token, name } = await login(email, password);
+      setToken(access_token, email, name);
       router.push("/");
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -49,13 +50,14 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-sm">
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+      <LoginPage.VideoBackground videoUrl="/login.mp4" />
+      <div className="w-full max-w-xl bg-transparent bg-opacity-90 backdrop-blur-md rounded-2xl shadow-lg p-6 relative z-10">
+        <form onSubmit={handleSubmit} className="bg-transparent bg-opacity-90 backdrop-blur-md rounded-2xl shadow-xl p-8 space-y-6">
           <div className="text-center space-y-2">
-            <h1 className="text-3xl font-light text-slate-800">
+            <h1 className="text-3xl font-light text-black">
               Entrar
             </h1>
-            <p className="text-slate-500 text-sm">
+            <p className="text-black text-sm">
               Acesse sua conta
             </p>
           </div>
